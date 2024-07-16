@@ -35,6 +35,24 @@ function operate(leftOperand, operator, rightOperand) {
     return result;
 }
 
+function updateDisplay(input) {
+    const display = document.querySelector("#display");
+    display.textContent = display.textContent + input;
+}
+
+function displayNumberOnClick() {
+    const buttonContainer = document.querySelectorAll("button.number");
+    buttonContainer.forEach((button) => {
+        button.addEventListener("click", (event) => {
+            let target = event.target;
+            updateDisplay(target.textContent);
+        });
+    })
+}
+
 let leftOperand;
 let rightOperand;
 let operator;
+
+/* Execution phase */
+displayNumberOnClick();
