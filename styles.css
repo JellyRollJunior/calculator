@@ -19,19 +19,26 @@ body {
 
 .display-container {
   display: flex;
+  height: 75px;
+  flex-direction: column;
+  border: 1px solid black;
 }
 
-#display {
-  flex: 1;
+#working-display,
+#stored-display {
+  flex: 1 1 auto;
   padding: 0px 8px;
-  border: 1px solid black;
 
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: flex-end;
 
-  font-size: 36px;
+  font-size: 32px;
   font-family: 'Calculator', sans-serif;
+}
+
+#stored-display {
+  font-size: 24px;
 }
 
 .button-container {
