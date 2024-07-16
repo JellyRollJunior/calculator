@@ -35,8 +35,8 @@ function operate(leftOperand, operator, rightOperand) {
     return result;
 }
 
-function updateDisplay(input) {
-    const display = document.querySelector("#display");
+function updateWorkingDisplay(input) {
+    const display = document.querySelector("#working-display");
     display.textContent = display.textContent + input;
 }
 
@@ -45,7 +45,7 @@ function displayNumberOnClick() {
     buttonContainer.forEach((button) => {
         button.addEventListener("click", (event) => {
             let target = event.target;
-            updateDisplay(target.textContent);
+            updateWorkingDisplay(target.textContent);
         });
     })
 }
