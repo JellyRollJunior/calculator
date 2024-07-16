@@ -26,7 +26,7 @@ function operate(leftOperand, operator, rightOperand) {
         case "x":
             result = multiply(leftOperand, rightOperand);
             break;
-        case "/":
+        case "÷":
             result = divide(leftOperand, rightOperand);
             break;
         default:
