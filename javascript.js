@@ -1,15 +1,40 @@
-function add(a, b) {
-    return Number(a) + Number(b);
+function add(leftOperand, rightOperand) {
+    return Number(leftOperand) + Number(rightOperand);
 }
 
-function subtract(a, b) {
-    return Number(a) - Number(b);
+function subtract(leftOperand, rightOperand) {
+    return Number(leftOperand) - Number(rightOperand);
 }
 
-function multiply(a, b) {
-    return Number(a) * Number(b);
+function multiply(leftOperand, rightOperand) {
+    return Number(leftOperand) * Number(rightOperand);
 }
 
-function divide(a, b) {
-    return Number(a) / Number(b);
+function divide(leftOperand, rightOperand) {
+    return Number(leftOperand) / Number(rightOperand);
 }
+
+function operate(leftOperand, operator, rightOperand) {
+    let result = 0;
+    switch (operator) {
+        case "+":
+            result = add(leftOperand, rightOperand);
+            break;
+        case "-":
+            result = subtract(leftOperand, rightOperand);
+            break;
+        case "x":
+            result = multiply(leftOperand, rightOperand);
+            break;
+        case "/":
+            result = divide(leftOperand, rightOperand);
+            break;
+        default:
+            result = add(leftOperand, rightOperand);
+    }
+    return result;
+}
+
+let leftOperand;
+let rightOperand;
+let operator;
