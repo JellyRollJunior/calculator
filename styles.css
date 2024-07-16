@@ -25,7 +25,7 @@ body {
 }
 
 #working-display,
-#stored-display {
+#left-expression-display {
   flex: 1 1 auto;
   padding: 0px 8px;
 
@@ -37,7 +37,7 @@ body {
   font-family: 'Calculator', sans-serif;
 }
 
-#stored-display {
+#left-expression-display {
   font-size: 24px;
 }
 

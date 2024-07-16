@@ -40,14 +40,32 @@ function updateWorkingDisplay(input) {
     display.textContent = display.textContent + input;
 }
 
-function displayNumberOnClick() {
-    const buttonContainer = document.querySelectorAll("button.number");
-    buttonContainer.forEach((button) => {
+function displayNumber() {
+    const numberButtons = document.querySelectorAll("button.number");
+    numberButtons.forEach((button) => {
         button.addEventListener("click", (event) => {
             let target = event.target;
             updateWorkingDisplay(target.textContent);
         });
-    })
+    });
+}
+
+function updateLeftExpressionDisplay(input) {
+    const leftExpressionDisplay = document.querySelector(
+        "#left-expression-display"
+    );
+    const display = document.querySelector("#working-display");
+    leftExpressionDisplay.textContent = `${display.textContent} ${input}`;
+}
+
+function displayOperand() {
+    const operandButtons = document.querySelectorAll(".operand");
+    operandButtons.forEach((button) => {
+        button.addEventListener("click", (event) => {
+            let target = event.target;
+            updateLeftExpressionDisplay(target.textContent);
+        });
+    });
 }
 
 let leftOperand;
@@ -55,4 +73,5 @@ let rightOperand;
 let operator;
 
 /* Execution phase */
-displayNumberOnClick();
+displayNumber();
+displayOperand();
