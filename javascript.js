@@ -82,7 +82,7 @@ function negateWorkingDisplay() {
     const display = document.querySelector("#working-display");
     let number = display.textContent;
     if (number === "0") return;
-    number = (number.charAt(0) === "-") ? number.slice(1) : `-${number}`;
+    number = number.charAt(0) === "-" ? number.slice(1) : `-${number}`;
     display.textContent = number;
 }
 
@@ -90,6 +90,14 @@ function negateOnClickPlusMinusButton() {
     const negateButton = document.querySelector("#negate");
     negateButton.addEventListener("click", (event) => {
         negateWorkingDisplay();
+    });
+}
+
+function clearDisplayOnClickACButton() {
+    const clearButton = document.querySelector("#clear");
+    clearButton.addEventListener("click", (event) => {
+        clearWorkingDisplay();
+        clearTopDisplay();
     });
 }
 
