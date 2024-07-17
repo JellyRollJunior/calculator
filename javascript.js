@@ -86,14 +86,14 @@ function negateWorkingDisplay() {
     display.textContent = number;
 }
 
-function negateOnClickPlusMinusButton() {
+function negateOnClickingPlusMinusButton() {
     const negateButton = document.querySelector("#negate");
     negateButton.addEventListener("click", (event) => {
         negateWorkingDisplay();
     });
 }
 
-function clearDisplayOnClickACButton() {
+function clearDisplayOnClickingACButton() {
     const clearButton = document.querySelector("#clear");
     clearButton.addEventListener("click", (event) => {
         clearWorkingDisplay();
@@ -113,7 +113,7 @@ function getRightOperand() {
     return document.querySelector("#working-display").textContent;
 }
 
-function operateOnClickEqualButton() {
+function operateOnClickingEqualButton() {
     const equalButton = document.querySelector("#equal");
     equalButton.addEventListener("click", (event) => {
         let result = operate(
@@ -130,6 +130,6 @@ function operateOnClickEqualButton() {
 /* Execution phase */
 displayNumberOnClick();
 displayOperandOnClick();
-operateOnClickEqualButton();
-negateOnClickPlusMinusButton();
-clearDisplayOnClickACButton();
+operateOnClickingEqualButton();
+negateOnClickingPlusMinusButton();
+clearDisplayOnClickingACButton();
