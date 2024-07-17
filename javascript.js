@@ -52,9 +52,7 @@ function displayNumber() {
 }
 
 function updateTopDisplay(input) {
-    const topDisplay = document.querySelector(
-        "#top-display"
-    );
+    const topDisplay = document.querySelector("#top-display");
     const display = document.querySelector("#working-display");
     topDisplay.textContent = `${display.textContent} ${input}`;
 }
@@ -81,36 +79,30 @@ function displayOperand() {
 }
 
 function getLeftOperand() {
-    return document
-        .querySelector("#top-display")
-        .textContent.slice(0, -2);
+    return document.querySelector("#top-display").textContent.slice(0, -2);
 }
 
 function getOperator() {
-    return document
-        .querySelector("#top-display")
-        .textContent.slice(-1);
+    return document.querySelector("#top-display").textContent.slice(-1);
 }
 
 function getRightOperand() {
-    return document
-        .querySelector("#working-display")
-        .textContent;
+    return document.querySelector("#working-display").textContent;
 }
 
 function operateOnEqualClick() {
     const equalButton = document.querySelector("#equal");
     equalButton.addEventListener("click", (event) => {
-        let result = operate(getLeftOperand(), getOperator(), getRightOperand());
+        let result = operate(
+            getLeftOperand(),
+            getOperator(),
+            getRightOperand()
+        );
         clearWorkingDisplay();
         appendToWorkingDisplay(result);
         clearTopDisplay();
     });
 }
-
-let leftOperand;
-let rightOperand;
-let operator;
 
 /* Execution phase */
 displayNumber();
