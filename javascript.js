@@ -35,9 +35,10 @@ function operate(leftOperand, operator, rightOperand) {
     return result;
 }
 
-function updateWorkingDisplay(input) {
+function appendToWorkingDisplay(input) {
     const display = document.querySelector("#working-display");
-    display.textContent = (display.textContent === "0") ? input : display.textContent + input;
+    display.textContent =
+        display.textContent === "0" ? input : display.textContent + input;
 }
 
 function displayNumber() {
@@ -45,17 +46,22 @@ function displayNumber() {
     numberButtons.forEach((button) => {
         button.addEventListener("click", (event) => {
             let target = event.target;
-            updateWorkingDisplay(target.textContent);
+            appendToWorkingDisplay(target.textContent);
         });
     });
 }
 
-function updateLeftExpressionDisplay(input) {
-    const leftExpressionDisplay = document.querySelector(
-        "#left-expression-display"
+function updateTopDisplay(input) {
+    const topDisplay = document.querySelector(
+        "#top-display"
     );
     const display = document.querySelector("#working-display");
-    leftExpressionDisplay.textContent = `${display.textContent} ${input}`;
+    topDisplay.textContent = `${display.textContent} ${input}`;
+}
+
+function clearTopDisplay() {
+    const display = document.querySelector("#top-display");
+    display.textContent = "";
 }
 
 function clearWorkingDisplay() {
@@ -68,9 +74,37 @@ function displayOperand() {
     operandButtons.forEach((button) => {
         button.addEventListener("click", (event) => {
             let target = event.target;
-            updateLeftExpressionDisplay(target.textContent);
+            updateTopDisplay(target.textContent);
             clearWorkingDisplay();
         });
+    });
+}
+
+function getLeftOperand() {
+    return document
+        .querySelector("#top-display")
+        .textContent.slice(0, -2);
+}
+
+function getOperator() {
+    return document
+        .querySelector("#top-display")
+        .textContent.slice(-1);
+}
+
+function getRightOperand() {
+    return document
+        .querySelector("#working-display")
+        .textContent;
+}
+
+function operateOnEqualClick() {
+    const equalButton = document.querySelector("#equal");
+    equalButton.addEventListener("click", (event) => {
+        let result = operate(getLeftOperand(), getOperator(), getRightOperand());
+        clearWorkingDisplay();
+        appendToWorkingDisplay(result);
+        clearTopDisplay();
     });
 }
 
@@ -81,3 +115,4 @@ let operator;
 /* Execution phase */
 displayNumber();
 displayOperand();
+operateOnEqualClick();
