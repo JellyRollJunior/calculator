@@ -27,7 +27,7 @@ function operate(leftOperand, operator, rightOperand) {
             result = multiply(leftOperand, rightOperand);
             break;
         case "÷":
-            result = divide(leftOperand, rightOperand);
+            result = (+rightOperand === 0) ? "oops ๑>؂•̀๑" : divide(leftOperand, rightOperand);
             break;
         default:
             result = add(leftOperand, rightOperand);
