@@ -37,7 +37,7 @@ function operate(leftOperand, operator, rightOperand) {
 
 function updateWorkingDisplay(input) {
     const display = document.querySelector("#working-display");
-    display.textContent = display.textContent + input;
+    display.textContent = (display.textContent === "0") ? input : display.textContent + input;
 }
 
 function displayNumber() {
@@ -58,12 +58,18 @@ function updateLeftExpressionDisplay(input) {
     leftExpressionDisplay.textContent = `${display.textContent} ${input}`;
 }
 
+function clearWorkingDisplay() {
+    const display = document.querySelector("#working-display");
+    display.textContent = "";
+}
+
 function displayOperand() {
     const operandButtons = document.querySelectorAll(".operand");
     operandButtons.forEach((button) => {
         button.addEventListener("click", (event) => {
             let target = event.target;
             updateLeftExpressionDisplay(target.textContent);
+            clearWorkingDisplay();
         });
     });
 }
