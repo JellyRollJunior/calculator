@@ -78,6 +78,21 @@ function displayOperand() {
     });
 }
 
+function negateWorkingDisplay() {
+    const display = document.querySelector("#working-display");
+    let number = display.textContent;
+    if (number === "0") return;
+    number = (number.charAt(0) === "-") ? number.slice(1) : `-${number}`;
+    display.textContent = number;
+}
+
+function negateOnPlusMinusClick() {
+    const negateButton = document.querySelector("#negate");
+    negateButton.addEventListener("click", (event) => {
+        negateWorkingDisplay();
+    });
+}
+
 function getLeftOperand() {
     return document.querySelector("#top-display").textContent.slice(0, -2);
 }
@@ -108,3 +123,4 @@ function operateOnEqualClick() {
 displayNumber();
 displayOperand();
 operateOnEqualClick();
+negateOnPlusMinusClick();
