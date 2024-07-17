@@ -41,7 +41,7 @@ function appendToWorkingDisplay(input) {
         display.textContent === "0" ? input : display.textContent + input;
 }
 
-function displayNumber() {
+function displayNumberOnClick() {
     const numberButtons = document.querySelectorAll("button.number");
     numberButtons.forEach((button) => {
         button.addEventListener("click", (event) => {
@@ -67,7 +67,7 @@ function clearWorkingDisplay() {
     display.textContent = "";
 }
 
-function displayOperand() {
+function displayOperandOnClick() {
     const operandButtons = document.querySelectorAll(".operand");
     operandButtons.forEach((button) => {
         button.addEventListener("click", (event) => {
@@ -86,7 +86,7 @@ function negateWorkingDisplay() {
     display.textContent = number;
 }
 
-function negateOnPlusMinusClick() {
+function negateOnClickPlusMinusButton() {
     const negateButton = document.querySelector("#negate");
     negateButton.addEventListener("click", (event) => {
         negateWorkingDisplay();
@@ -105,7 +105,7 @@ function getRightOperand() {
     return document.querySelector("#working-display").textContent;
 }
 
-function operateOnEqualClick() {
+function operateOnClickEqualButton() {
     const equalButton = document.querySelector("#equal");
     equalButton.addEventListener("click", (event) => {
         let result = operate(
@@ -120,7 +120,8 @@ function operateOnEqualClick() {
 }
 
 /* Execution phase */
-displayNumber();
-displayOperand();
-operateOnEqualClick();
-negateOnPlusMinusClick();
+displayNumberOnClick();
+displayOperandOnClick();
+operateOnClickEqualButton();
+negateOnClickPlusMinusButton();
+clearDisplayOnClickACButton();
