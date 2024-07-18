@@ -74,19 +74,18 @@ function displayOperandOnClick() {
     const operandButtons = document.querySelectorAll(".operand");
     operandButtons.forEach((button) => {
         button.addEventListener("click", (event) => {
-            if (leftOperand !== null && operator != null && rightOperand != null) {
-                // evaluate
-                if (operator === "÷" && rightOperand === "0") {
-                    updateWorkingDisplay("oops ๑>؂•̀๑");
-                    clearExpressionVariables();
-                } else {
-                    let result = operate(
-                        leftOperand,
-                        operator,
-                        rightOperand
-                    ).toString();
-                    updateWorkingDisplay(result);
-                    clearExpressionVariables();
+            if (
+                leftOperand !== null &&
+                operator != null &&
+                rightOperand != null
+            ) {
+                let result =
+                    operator !== "÷" && rightOperand !== "0"
+                        ? operate(leftOperand, operator, rightOperand).toString()
+                        : SNARKY_DIVIDE_BY_ZERO_MESSAGE;
+                updateWorkingDisplay(result);
+                clearExpressionVariables();
+                if (result !== SNARKY_DIVIDE_BY_ZERO_MESSAGE) {
                     leftOperand = result;
                 }
             }
@@ -99,9 +98,12 @@ function displayOperandOnClick() {
 }
 
 function negateOperand(operand) {
-    return operand === null ? null
-        : operand === "0" ? "0"
-        : operand.charAt(0) === "-" ? operand.slice(1)
+    return operand === null
+        ? null
+        : operand === "0"
+        ? "0"
+        : operand.charAt(0) === "-"
+        ? operand.slice(1)
         : `-${operand}`;
 }
 
@@ -109,7 +111,8 @@ function negateWorkingDisplay() {
     if (leftOperand !== null && rightOperand == null) {
         leftOperand = negateOperand(leftOperand);
         // if operand is available, that means left operand is entered => update top display
-        operator !== null ? updateTopDisplay(`${leftOperand} ${operator}`)
+        operator !== null
+            ? updateTopDisplay(`${leftOperand} ${operator}`)
             : updateWorkingDisplay(leftOperand);
     } else if (rightOperand !== null) {
         rightOperand = negateOperand(rightOperand);
@@ -153,18 +156,13 @@ function operateOnClickingEqualButton() {
             rightOperand !== null
         ) {
             displayEquation();
-            // display snarky message when dividing by zero
-            if (operator === "÷" && rightOperand === "0") {
-                updateWorkingDisplay("oops ๑>؂•̀๑");
-                clearExpressionVariables();
-            } else {
-                let result = operate(
-                    leftOperand,
-                    operator,
-                    rightOperand
-                ).toString();
-                updateWorkingDisplay(result);
-                clearExpressionVariables();
+            let result =
+                operator !== "÷" && rightOperand !== "0"
+                    ? operate(leftOperand, operator, rightOperand).toString()
+                    : SNARKY_DIVIDE_BY_ZERO_MESSAGE;
+            updateWorkingDisplay(result);
+            clearExpressionVariables();
+            if (result !== SNARKY_DIVIDE_BY_ZERO_MESSAGE) {
                 leftOperand = result;
             }
         }
@@ -172,6 +170,7 @@ function operateOnClickingEqualButton() {
 }
 
 /* expression variables */
+const SNARKY_DIVIDE_BY_ZERO_MESSAGE = "oops ๑>؂•̀๑";
 let leftOperand = null;
 let operator = null;
 let rightOperand = null;
@@ -182,6 +181,3 @@ displayOperandOnClick();
 operateOnClickingEqualButton();
 negateOnClickingPlusMinusButton();
 clearDisplayOnClickingACButton();
-
-// TODO: evaluate on operator click
-// TODO: ROUND ANSWERS
