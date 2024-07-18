@@ -35,18 +35,22 @@ function operate(leftOperand, operator, rightOperand) {
     return result;
 }
 
-function appendToWorkingDisplay(input) {
-    const display = document.querySelector("#working-display");
-    display.textContent =
-        display.textContent === "0" ? input : display.textContent + input;
-}
-
 function displayNumberOnClick() {
     const numberButtons = document.querySelectorAll("button.number");
     numberButtons.forEach((button) => {
         button.addEventListener("click", (event) => {
-            let target = event.target;
-            appendToWorkingDisplay(target.textContent);
+            let key = event.target.textContent;
+            let displayValue = "";
+            // if operator is null, we have not yet confirmed a left operand
+            if (operator === null) {
+                leftOperand = (leftOperand === "0") ? key : leftOperand + key;
+                displayValue = leftOperand;
+            } else {
+                rightOperand = (leftOperand === "0") ? key : rightOperand + key;
+                displayValue = rightOperand;
+            }
+            const display = document.querySelector("#working-display");
+            display.textContent = displayValue;
         });
     });
 }
@@ -126,6 +130,11 @@ function operateOnClickingEqualButton() {
         clearTopDisplay();
     });
 }
+
+/* expression variables */
+let leftOperand = "";
+let operator = null;
+let rightOperand = "";
 
 /* Execution phase */
 displayNumberOnClick();
