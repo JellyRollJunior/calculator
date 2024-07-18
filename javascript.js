@@ -27,10 +27,7 @@ function operate(leftOperand, operator, rightOperand) {
             result = multiply(leftOperand, rightOperand);
             break;
         case "÷":
-            result =
-                +rightOperand === 0
-                    ? "oops ๑>؂•̀๑"
-                    : divide(leftOperand, rightOperand);
+            result = divide(leftOperand, rightOperand);
             break;
         default:
             result = add(leftOperand, rightOperand);
@@ -135,11 +132,17 @@ function operateOnClickingEqualButton() {
             && operator !== null
             && rightOperand !== null
         ) {
-            let result = operate(leftOperand, operator, rightOperand).toString();
             displayEquation();
-            clearExpressionVariables();
-            updateWorkingDisplay(result);
-            leftOperand = result;
+            // display snarky message when dividing by zero
+            if (operator === "÷" && rightOperand === "0") {
+                updateWorkingDisplay("oops ๑>؂•̀๑");
+                clearExpressionVariables();
+            } else {
+                let result = operate(leftOperand, operator, rightOperand).toString();
+                updateWorkingDisplay(result);
+                clearExpressionVariables();
+                leftOperand = result;
+            }
         }
     });
 }
