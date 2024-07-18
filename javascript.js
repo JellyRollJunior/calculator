@@ -35,6 +35,10 @@ function operate(leftOperand, operator, rightOperand) {
     return result;
 }
 
+function updateOperand(operand, newNumber) {
+    return (operand === "0" || operand === null) ? newNumber : operand + newNumber;
+}
+
 function displayNumberOnClick() {
     const numberButtons = document.querySelectorAll("button.number");
     numberButtons.forEach((button) => {
@@ -43,10 +47,10 @@ function displayNumberOnClick() {
             let displayValue = "";
             // if operator is null, we have not yet confirmed a left operand
             if (operator === null) {
-                leftOperand = (leftOperand === "0") ? key : leftOperand + key;
+                leftOperand = updateOperand(leftOperand, key);
                 displayValue = leftOperand;
             } else {
-                rightOperand = (leftOperand === "0") ? key : rightOperand + key;
+                rightOperand = updateOperand(rightOperand, key);
                 displayValue = rightOperand;
             }
             const display = document.querySelector("#working-display");
@@ -55,10 +59,9 @@ function displayNumberOnClick() {
     });
 }
 
-function updateTopDisplay(input) {
+function updateTopDisplay() {
     const topDisplay = document.querySelector("#top-display");
-    const display = document.querySelector("#working-display");
-    topDisplay.textContent = `${display.textContent} ${input}`;
+    topDisplay.textContent = `${leftOperand} ${operator}`;
 }
 
 function clearTopDisplay() {
@@ -75,9 +78,8 @@ function displayOperandOnClick() {
     const operandButtons = document.querySelectorAll(".operand");
     operandButtons.forEach((button) => {
         button.addEventListener("click", (event) => {
-            let target = event.target;
-            updateTopDisplay(target.textContent);
-            clearWorkingDisplay();
+            operator = event.target.textContent;
+            updateTopDisplay();
         });
     });
 }
@@ -132,9 +134,9 @@ function operateOnClickingEqualButton() {
 }
 
 /* expression variables */
-let leftOperand = "";
+let leftOperand = null;
 let operator = null;
-let rightOperand = "";
+let rightOperand = null;
 
 /* Execution phase */
 displayNumberOnClick();
