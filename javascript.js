@@ -1,3 +1,4 @@
+/* Arithmetic operations */
 function add(leftOperand, rightOperand) {
     return Number(leftOperand) + Number(rightOperand);
 }
@@ -35,6 +36,7 @@ function operate(leftOperand, operator, rightOperand) {
     return result;
 }
 
+/* Display functions */
 function updateWorkingDisplay(displayValue) {
     const display = document.querySelector("#working-display");
     display.textContent = displayValue;
@@ -45,12 +47,35 @@ function updateTopDisplay(displayValue) {
     topDisplay.textContent = displayValue;
 }
 
+function displayEquation() {
+    const topDisplay = document.querySelector("#top-display");
+    topDisplay.textContent = EQUATION;
+}
+
+/* Modify operands / operators functions */
 function updateOperand(operand, newNumber) {
     return operand === "0" || operand === null
         ? newNumber
         : operand + newNumber;
 }
 
+function negateOperand(operand) {
+    return operand === null
+        ? null
+        : operand === "0"
+        ? "0"
+        : operand.charAt(0) === "-"
+        ? operand.slice(1)
+        : `-${operand}`;
+}
+
+function clearExpressionVariables() {
+    leftOperand = null;
+    operator = null;
+    rightOperand = null;
+}
+
+/* Button event listeners && logic */
 function displayNumberOnClick() {
     const numberButtons = document.querySelectorAll("button.number");
     numberButtons.forEach((button) => {
@@ -97,33 +122,19 @@ function displayOperandOnClick() {
     });
 }
 
-function negateOperand(operand) {
-    return operand === null
-        ? null
-        : operand === "0"
-        ? "0"
-        : operand.charAt(0) === "-"
-        ? operand.slice(1)
-        : `-${operand}`;
-}
-
-function negateWorkingDisplay() {
-    if (leftOperand !== null && rightOperand == null) {
-        leftOperand = negateOperand(leftOperand);
-        // if operand is available, that means left operand is entered => update top display
-        operator !== null
-            ? updateTopDisplay(LEFT_OPERAND_AND_OPERATOR)
-            : updateWorkingDisplay(leftOperand);
-    } else if (rightOperand !== null) {
-        rightOperand = negateOperand(rightOperand);
-        updateWorkingDisplay(rightOperand);
-    }
-}
-
 function negateOnClickingPlusMinusButton() {
     const negateButton = document.querySelector("#negate");
     negateButton.addEventListener("click", (event) => {
-        negateWorkingDisplay();
+        if (leftOperand !== null && rightOperand == null) {
+            leftOperand = negateOperand(leftOperand);
+            // if operand is available, that means left operand is entered => update top display
+            operator !== null
+                ? updateTopDisplay(LEFT_OPERAND_AND_OPERATOR)
+                : updateWorkingDisplay(leftOperand);
+        } else if (rightOperand !== null) {
+            rightOperand = negateOperand(rightOperand);
+            updateWorkingDisplay(rightOperand);
+        }
     });
 }
 
@@ -134,17 +145,6 @@ function clearDisplayOnClickingACButton() {
         updateTopDisplay("");
         updateWorkingDisplay("");
     });
-}
-
-function clearExpressionVariables() {
-    leftOperand = null;
-    operator = null;
-    rightOperand = null;
-}
-
-function displayEquation() {
-    const topDisplay = document.querySelector("#top-display");
-    topDisplay.textContent = EQUATION;
 }
 
 function operateOnClickingEqualButton() {
