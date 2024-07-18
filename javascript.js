@@ -27,7 +27,10 @@ function operate(leftOperand, operator, rightOperand) {
             result = multiply(leftOperand, rightOperand);
             break;
         case "÷":
-            result = (+rightOperand === 0) ? "oops ๑>؂•̀๑" : divide(leftOperand, rightOperand);
+            result =
+                +rightOperand === 0
+                    ? "oops ๑>؂•̀๑"
+                    : divide(leftOperand, rightOperand);
             break;
         default:
             result = add(leftOperand, rightOperand);
@@ -35,8 +38,20 @@ function operate(leftOperand, operator, rightOperand) {
     return result;
 }
 
+function updateWorkingDisplay(displayValue) {
+    const display = document.querySelector("#working-display");
+    display.textContent = displayValue;
+}
+
+function updateTopDisplay() {
+    const topDisplay = document.querySelector("#top-display");
+    topDisplay.textContent = `${leftOperand} ${operator}`;
+}
+
 function updateOperand(operand, newNumber) {
-    return (operand === "0" || operand === null) ? newNumber : operand + newNumber;
+    return operand === "0" || operand === null
+        ? newNumber
+        : operand + newNumber;
 }
 
 function displayNumberOnClick() {
@@ -53,25 +68,9 @@ function displayNumberOnClick() {
                 rightOperand = updateOperand(rightOperand, key);
                 displayValue = rightOperand;
             }
-            const display = document.querySelector("#working-display");
-            display.textContent = displayValue;
+            updateWorkingDisplay(displayValue);
         });
     });
-}
-
-function updateTopDisplay() {
-    const topDisplay = document.querySelector("#top-display");
-    topDisplay.textContent = `${leftOperand} ${operator}`;
-}
-
-function clearTopDisplay() {
-    const display = document.querySelector("#top-display");
-    display.textContent = "";
-}
-
-function clearWorkingDisplay() {
-    const display = document.querySelector("#working-display");
-    display.textContent = "";
 }
 
 function displayOperandOnClick() {
@@ -107,29 +106,30 @@ function clearDisplayOnClickingACButton() {
     });
 }
 
-function getLeftOperand() {
-    return document.querySelector("#top-display").textContent.slice(0, -2);
+function clearExpressionVariables() {
+    leftOperand = null;
+    operator = null;
+    rightOperand = null;
 }
 
-function getOperator() {
-    return document.querySelector("#top-display").textContent.slice(-1);
-}
-
-function getRightOperand() {
-    return document.querySelector("#working-display").textContent;
+function displayEquation() {
+    const topDisplay = document.querySelector("#top-display");
+    topDisplay.textContent = `${leftOperand} ${operator} ${rightOperand} =`;
 }
 
 function operateOnClickingEqualButton() {
     const equalButton = document.querySelector("#equal");
     equalButton.addEventListener("click", (event) => {
-        let result = operate(
-            getLeftOperand(),
-            getOperator(),
-            getRightOperand()
-        );
-        clearWorkingDisplay();
-        appendToWorkingDisplay(result);
-        clearTopDisplay();
+        if (leftOperand !== null 
+            && operator !== null
+            && rightOperand !== null
+        ) {
+            let result = operate(leftOperand, operator, rightOperand);
+            displayEquation();
+            clearExpressionVariables();
+            updateWorkingDisplay(result);
+            leftOperand = result;
+        }
     });
 }
 
