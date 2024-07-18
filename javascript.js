@@ -83,12 +83,22 @@ function displayOperandOnClick() {
     });
 }
 
+function negateOperand(operand) {
+    return (operand === null) ? null
+        : (operand === "0") ? "0" 
+        : operand.charAt(0) === "-" ? operand.slice(1) 
+        : `-${operand}`;
+}
+
 function negateWorkingDisplay() {
-    const display = document.querySelector("#working-display");
-    let number = display.textContent;
-    if (number === "0") return;
-    number = number.charAt(0) === "-" ? number.slice(1) : `-${number}`;
-    display.textContent = number;
+    if (leftOperand !== null && rightOperand == null) {
+        leftOperand = negateOperand(leftOperand);
+        // if operand is available, that means left operand is entered => update top display
+        (operator !== null) ? updateTopDisplay(`${leftOperand} ${operator}`) : updateWorkingDisplay(leftOperand);
+    } else if (rightOperand !== null) {
+        rightOperand = negateOperand(rightOperand);
+        updateWorkingDisplay(rightOperand);
+    }
 }
 
 function negateOnClickingPlusMinusButton() {
@@ -125,7 +135,7 @@ function operateOnClickingEqualButton() {
             && operator !== null
             && rightOperand !== null
         ) {
-            let result = operate(leftOperand, operator, rightOperand);
+            let result = operate(leftOperand, operator, rightOperand).toString();
             displayEquation();
             clearExpressionVariables();
             updateWorkingDisplay(result);
