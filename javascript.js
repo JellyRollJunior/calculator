@@ -74,16 +74,18 @@ function displayOperandOnClick() {
     const operandButtons = document.querySelectorAll(".operand");
     operandButtons.forEach((button) => {
         button.addEventListener("click", (event) => {
-            operator = event.target.textContent;
-            updateTopDisplay(`${leftOperand} ${operator}`);
+            if (leftOperand !== null) {
+                operator = event.target.textContent;
+                updateTopDisplay(`${leftOperand} ${operator}`);
+            }
         });
     });
 }
 
 function negateOperand(operand) {
-    return (operand === null) ? null
-        : (operand === "0") ? "0" 
-        : operand.charAt(0) === "-" ? operand.slice(1) 
+    return operand === null ? null
+        : operand === "0" ? "0"
+        : operand.charAt(0) === "-" ? operand.slice(1)
         : `-${operand}`;
 }
 
@@ -91,7 +93,8 @@ function negateWorkingDisplay() {
     if (leftOperand !== null && rightOperand == null) {
         leftOperand = negateOperand(leftOperand);
         // if operand is available, that means left operand is entered => update top display
-        (operator !== null) ? updateTopDisplay(`${leftOperand} ${operator}`) : updateWorkingDisplay(leftOperand);
+        operator !== null ? updateTopDisplay(`${leftOperand} ${operator}`)
+            : updateWorkingDisplay(leftOperand);
     } else if (rightOperand !== null) {
         rightOperand = negateOperand(rightOperand);
         updateWorkingDisplay(rightOperand);
@@ -128,9 +131,10 @@ function displayEquation() {
 function operateOnClickingEqualButton() {
     const equalButton = document.querySelector("#equal");
     equalButton.addEventListener("click", (event) => {
-        if (leftOperand !== null 
-            && operator !== null
-            && rightOperand !== null
+        if (
+            leftOperand !== null &&
+            operator !== null &&
+            rightOperand !== null
         ) {
             displayEquation();
             // display snarky message when dividing by zero
@@ -138,7 +142,11 @@ function operateOnClickingEqualButton() {
                 updateWorkingDisplay("oops ๑>؂•̀๑");
                 clearExpressionVariables();
             } else {
-                let result = operate(leftOperand, operator, rightOperand).toString();
+                let result = operate(
+                    leftOperand,
+                    operator,
+                    rightOperand
+                ).toString();
                 updateWorkingDisplay(result);
                 clearExpressionVariables();
                 leftOperand = result;
