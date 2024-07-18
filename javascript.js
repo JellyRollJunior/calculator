@@ -43,9 +43,9 @@ function updateWorkingDisplay(displayValue) {
     display.textContent = displayValue;
 }
 
-function updateTopDisplay() {
+function updateTopDisplay(displayValue) {
     const topDisplay = document.querySelector("#top-display");
-    topDisplay.textContent = `${leftOperand} ${operator}`;
+    topDisplay.textContent = displayValue;
 }
 
 function updateOperand(operand, newNumber) {
@@ -78,7 +78,7 @@ function displayOperandOnClick() {
     operandButtons.forEach((button) => {
         button.addEventListener("click", (event) => {
             operator = event.target.textContent;
-            updateTopDisplay();
+            updateTopDisplay(`${leftOperand} ${operator}`);
         });
     });
 }
@@ -101,8 +101,9 @@ function negateOnClickingPlusMinusButton() {
 function clearDisplayOnClickingACButton() {
     const clearButton = document.querySelector("#clear");
     clearButton.addEventListener("click", (event) => {
-        clearWorkingDisplay();
-        clearTopDisplay();
+        clearExpressionVariables();
+        updateTopDisplay("");
+        updateWorkingDisplay("");
     });
 }
 
