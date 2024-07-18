@@ -49,7 +49,7 @@ function updateTopDisplay(displayValue) {
 
 function displayEquation() {
     const topDisplay = document.querySelector("#top-display");
-    topDisplay.textContent = EQUATION;
+    topDisplay.textContent = `${leftOperand} ${operator} ${rightOperand} =`;
 }
 
 /* Modify operands / operators functions */
@@ -116,7 +116,7 @@ function displayOperandOnClick() {
             }
             if (leftOperand !== null) {
                 operator = event.target.textContent;
-                updateTopDisplay(LEFT_OPERAND_AND_OPERATOR);
+                updateTopDisplay(`${leftOperand} ${operator}`);
             }
         });
     });
@@ -129,7 +129,7 @@ function negateOnClickingPlusMinusButton() {
             leftOperand = negateOperand(leftOperand);
             // if operand is available, that means left operand is entered => update top display
             operator !== null
-                ? updateTopDisplay(LEFT_OPERAND_AND_OPERATOR)
+                ? updateTopDisplay(`${leftOperand} ${operator}`)
                 : updateWorkingDisplay(leftOperand);
         } else if (rightOperand !== null) {
             rightOperand = negateOperand(rightOperand);
@@ -171,8 +171,6 @@ function operateOnClickingEqualButton() {
 
 /* expression variables */
 const SNARKY_DIVIDE_BY_ZERO_MESSAGE = "oops ๑>؂•̀๑";
-const EQUATION = `${leftOperand} ${operator} ${rightOperand} =`;
-const LEFT_OPERAND_AND_OPERATOR = `${leftOperand} ${operator}`;
 let leftOperand = null;
 let operator = null;
 let rightOperand = null;
