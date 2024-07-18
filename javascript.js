@@ -74,6 +74,22 @@ function displayOperandOnClick() {
     const operandButtons = document.querySelectorAll(".operand");
     operandButtons.forEach((button) => {
         button.addEventListener("click", (event) => {
+            if (leftOperand !== null && operator != null && rightOperand != null) {
+                // evaluate
+                if (operator === "÷" && rightOperand === "0") {
+                    updateWorkingDisplay("oops ๑>؂•̀๑");
+                    clearExpressionVariables();
+                } else {
+                    let result = operate(
+                        leftOperand,
+                        operator,
+                        rightOperand
+                    ).toString();
+                    updateWorkingDisplay(result);
+                    clearExpressionVariables();
+                    leftOperand = result;
+                }
+            }
             if (leftOperand !== null) {
                 operator = event.target.textContent;
                 updateTopDisplay(`${leftOperand} ${operator}`);
@@ -166,3 +182,6 @@ displayOperandOnClick();
 operateOnClickingEqualButton();
 negateOnClickingPlusMinusButton();
 clearDisplayOnClickingACButton();
+
+// TODO: evaluate on operator click
+// TODO: ROUND ANSWERS
