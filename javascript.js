@@ -53,7 +53,8 @@ function updateTopDisplay(displayValue) {
 
 function displayEquation() {
     const topDisplay = document.querySelector("#top-display");
-    topDisplay.textContent = `${leftOperand} ${operator} ${rightOperand} =`;
+    let equation = `${leftOperand} ${operator} ${rightOperand} =`;
+    topDisplay.textContent = (equation.length > 23) ? EQUATION_TOO_LONG_MESSAGE : equation;
 }
 
 /* Modify operands / operators functions */
@@ -180,6 +181,7 @@ function operateOnClickingEqualButton() {
 }
 
 /* expression variables */
+const EQUATION_TOO_LONG_MESSAGE = "Too long ๑>؂•̀๑";
 const SNARKY_DIVIDE_BY_ZERO_MESSAGE = "oops ๑>؂•̀๑";
 let leftOperand = null;
 let operator = null;
