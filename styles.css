@@ -14,14 +14,17 @@ body {
   height: 300px;
   padding: 8px;
   gap: 8px;
-  border: 1px solid black;
+  border: 2px solid black;
+  border-radius: 8px;
 }
 
 .display-container {
+  flex: 1;
   display: flex;
   height: 75px;
   flex-direction: column;
-  border: 1px solid black;
+  border: 2px solid black;
+  border-radius: 8px;
 }
 
 #working-display,
@@ -43,7 +46,7 @@ body {
 }
 
 .button-container {
-  flex: 1;
+  flex: 2;
   display: flex;
 }
 
@@ -65,4 +68,5 @@ body {
 button {
   flex: 1;
   font-size: 18px;
+  border-radius: 8px;
 }
