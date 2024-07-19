@@ -33,8 +33,9 @@ body {
   align-items: center;
   justify-content: flex-end;
 
-  font-size: 32px;
+  font-size: 35px;
   font-family: 'Calculator', sans-serif;
+  overflow-wrap: break-word;
 }
 
 #top-display {

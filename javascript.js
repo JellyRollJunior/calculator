@@ -39,6 +39,10 @@ function operate(leftOperand, operator, rightOperand) {
 /* Display functions */
 function updateWorkingDisplay(displayValue) {
     const display = document.querySelector("#working-display");
+    if (displayValue.length > 15) {
+        let intValue = +displayValue;
+        displayValue = intValue.toExponential(9).toString();
+    }
     display.textContent = displayValue;
 }
 
@@ -56,6 +60,8 @@ function displayEquation() {
 function updateOperand(operand, newNumber) {
     return operand === "0" || operand === null
         ? newNumber
+        : operand.length >= 9 
+        ? operand
         : operand + newNumber;
 }
 
