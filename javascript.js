@@ -60,7 +60,7 @@ function displayEquation() {
 function updateOperand(operand, newNumber) {
     return operand === "0" || operand === null
         ? newNumber
-        : operand.length >= 9 
+        : operand.length >= 8
         ? operand
         : operand + newNumber;
 }
@@ -111,9 +111,13 @@ function displayOperandOnClick() {
                 rightOperand != null
             ) {
                 let result =
-                    operator !== "÷" && rightOperand !== "0"
-                        ? operate(leftOperand, operator, rightOperand).toString()
-                        : SNARKY_DIVIDE_BY_ZERO_MESSAGE;
+                    operator == "÷" && rightOperand == "0"
+                        ? SNARKY_DIVIDE_BY_ZERO_MESSAGE
+                        : operate(
+                              leftOperand,
+                              operator,
+                              rightOperand
+                          ).toString();
                 updateWorkingDisplay(result);
                 clearExpressionVariables();
                 if (result !== SNARKY_DIVIDE_BY_ZERO_MESSAGE) {
@@ -163,9 +167,9 @@ function operateOnClickingEqualButton() {
         ) {
             displayEquation();
             let result =
-                operator !== "÷" && rightOperand !== "0"
-                    ? operate(leftOperand, operator, rightOperand).toString()
-                    : SNARKY_DIVIDE_BY_ZERO_MESSAGE;
+                operator == "÷" && rightOperand == "0"
+                    ? SNARKY_DIVIDE_BY_ZERO_MESSAGE
+                    : operate(leftOperand, operator, rightOperand).toString();
             updateWorkingDisplay(result);
             clearExpressionVariables();
             if (result !== SNARKY_DIVIDE_BY_ZERO_MESSAGE) {
